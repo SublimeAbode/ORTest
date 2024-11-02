@@ -7,18 +7,21 @@ let package = Package(
     name: "ORTest",
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
-        .library(
+        .executable(
             name: "ORTest",
             targets: ["ORTest"]),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
-        .target(
-            name: "ORTest"),
-        .testTarget(
-            name: "ORTestTests",
-            dependencies: ["ORTest"]
+        .executableTarget(
+            name: "ORTest",
+            dependencies: ["ORTools"],
+            swiftSettings: [.interoperabilityMode(.Cxx)]
+        ),
+        .binaryTarget(
+            name: "ORTools",
+            path: "ORTools.xcframework"
         ),
     ]
 )
